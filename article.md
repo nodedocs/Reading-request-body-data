@@ -8,31 +8,33 @@ The first step, obviously, is to listen for incoming data - the trick is to wait
 
 Here is a quick script that shows you how to do exactly that:
 
-    var http = require('http');
-    var postHTML = 
-      '<html><head><title>Post Example</title></head>' +
-      '<body>' +
-      '<form method="post">' +
-      'Input 1: <input name="input1"><br>' +
-      'Input 2: <input name="input2"><br>' +
-      '<input type="submit">' +
-      '</form>' +
-      '</body></html>';
+```javascript
+var http = require('http');
+var postHTML = 
+  '<html><head><title>Post Example</title></head>' +
+  '<body>' +
+  '<form method="post">' +
+  'Input 1: <input name="input1"><br>' +
+  'Input 2: <input name="input2"><br>' +
+  '<input type="submit">' +
+  '</form>' +
+  '</body></html>';
 
-    http.createServer(function (req, res) {
-      var body = "";
+http.createServer(function (req, res) {
+  var body = "";
 
-      req.setEncoding('uft8');
+  req.setEncoding('uft8');
 
-      req.on('data', function (chunk) {
-        body += chunk;
-      });
-      req.on('end', function () {
-        console.log('POSTed: ' + body);
-        res.writeHead(200);
-        res.end(postHTML);
-      });
-    }).listen(8080);
+  req.on('data', function (chunk) {
+    body += chunk;
+  });
+  req.on('end', function () {
+    console.log('POSTed: ' + body);
+    res.writeHead(200);
+    res.end(postHTML);
+  });
+}).listen(8080);
+```
 
 The variable `postHTML` is a static string containing the HTML for two input boxes and a submit box - this HTML is provided so that you can `POST` example data.
 
